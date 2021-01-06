@@ -7,29 +7,39 @@ export class Elevator {
     public inService: boolean;
     public currentFloor: EFloors;
     public direction: EDirection = EDirection.Up;
+    public index: number
 
-    constructor() {
+    /**
+     * @description Se inicializa el Elevador con sus propiedades por defecto
+     */
+    constructor(index: number) {
       this.floorsCompleted = 0;
       this.inService = false;
       this.currentFloor = EFloors.Ground;
+      this.index = index;
     }
 
-    public callElevator(from: EFloors, to: EFloors) {
-      console.log('this.currentfloor INIT', this.currentFloor);
+    /**
+     * @description Llamar al elevador y realizar el movimiento deseado
+     * @returns number
+     */
+    public callElevator(from: EFloors, to: EFloors): number {
       this.inService = true;
       let floors = 0;
       floors = Math.abs(this.currentFloor - from);
       this.currentFloor = from;
-      console.log('this.currentfloor FROM', this.currentFloor);
       floors += Math.abs(this.currentFloor - to);
       this.currentFloor = to;
-      console.log('this.currentfloor TO', this.currentFloor);
       this.floorsCompleted += floors;
-      console.log('this.floorsCompleted', this.floorsCompleted);
       this.inService = false;
+      return floors;
     }
 
-    public setDirection(direction: EDirection) {
+    /**
+     * @description Establecer la dirección
+     * @returns void
+     */
+    public setDirection(direction: EDirection): void {
       this.direction = direction;
     }
-  }
+}

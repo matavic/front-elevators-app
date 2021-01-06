@@ -1,22 +1,35 @@
-<p>{{ elevators | json}}</p>
+<h4 class="text-center mb-3">Report with floor positions of all elevators on each set of requests</h4>
 <table class="table table-striped">
     <thead>
-    <tr>
-      <th scope="col"># Request</th>
-      <th scope="col" *ngFor="let elevator of elevators; let i = index">Elevator # {{ i }}</th>
-      <th scope="col">Total Floors / Request</th>
+    <tr class="text-center">
+      <th scope="col"># Requests Set</th>
+      <th scope="col" *ngFor="let elevator of elevators; let i = index">Elevator # {{ i + 1 }}</th>
+      <th scope="col">Total Floors by Request</th>
     </tr>
     </thead>
     <tbody>
-    <!-- <tr *ngFor="let country of countries; index as i">
-      <th scope="row">{{ i + 1 }}</th>
-      <td>
-        <img [src]="'https://upload.wikimedia.org/wikipedia/commons/' + country.flag" class="mr-2" style="width: 20px">
-        {{ country.name }}
-      </td>
-      <td>{{ country.area | number }}</td>
-      <td>{{ country.population | number }}</td>
-    </tr> -->
-    <tr></tr>
+        <tr *ngFor="let n of [1,2,3,4,5,6,7,8]">
+            <td class="text-center">{{n}}</td>
+            <ng-container *ngIf="requestsData">
+                <td *ngFor="let floor of requestsData[n-1].currentFloors" class="text-center">
+                    {{ floor }}
+                </td>
+                <td class="text-center">
+                    <b>{{requestsData[n-1].completedFloors}}</b>
+                </td>
+            </ng-container>
+        </tr>
     </tbody>
-  </table>
+    <tfoot>
+        <tr>
+            <td><b>Total Floors by Elevator</b></td>
+            <td *ngFor="let elevator of elevators; let i = index" class="text-center">
+                <b>{{ elevator.floorsCompleted }}</b>
+            </td>
+            <td class="completed" *ngIf="totalCompletedFloors">{{ totalCompletedFloors }}</td>
+        </tr>
+    </tfoot>
+</table>
+<div class="text-center">
+    <button type="button" class="btn btn-primary" (click)="goBack()">Go Back</button>
+</div>

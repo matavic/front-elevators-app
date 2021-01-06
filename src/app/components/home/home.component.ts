@@ -30,15 +30,24 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  public run(numberOfElevators) {
+  /**
+   * @description Iniciar simulación del paso de las 24 horas del día
+   * @returns void
+   */
+  public run(numberOfElevators): void {
     this.buttonText = 'Running simulation...';
     this.elevatorsService.elevators = [];
+    this.elevatorsService.requestsInfo = [];
     this.elevatorsService.createElevators(numberOfElevators);
     this.elevatorsService.runSimulation();
     this.wasRunned = true;
   }
 
-  public watchReport() {
+  /**
+   * @description Ir a la página de reportes
+   * @returns void
+   */
+  public watchReport(): void {
     this.router.navigate(['/report']);
   }
 
